@@ -1,0 +1,15 @@
+{
+  "problems": 12,
+  "k": 4,
+  "max_new": 200,
+  "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+  "target": "Qwen/Qwen2.5-1.5B-Instruct",
+  "baseline_tok_s": 4.430641397694077,
+  "spec_tok_s": 4.397394116720681,
+  "speedup": 0.992496056893546,
+  "acceptance_rate": 0.9159381304640215,
+  "theoretical_speedup_at_c=0.33": 1.8220367002683293,
+  "pass1_baseline": 0.75,
+  "pass1_speculative": 0.75,
+  "identical_outputs": "12/12"
+}

@@ -1,0 +1,32 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating test split:   0%|          | 0/164 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 164/164 [00:00<00:00, 10506.26 examples/s]
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:   0%|          | 1/290 [00:00<00:34,  8.45it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 1430.36it/s]
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:   0%|          | 1/338 [00:00<04:14,  1.32it/s]Loading weights:  36%|███▋      | 123/338 [00:00<00:01, 189.72it/s]Loading weights:  55%|█████▍    | 185/338 [00:01<00:00, 189.08it/s]Loading weights:  67%|██████▋   | 227/338 [00:01<00:00, 199.95it/s]Loading weights:  78%|███████▊  | 262/338 [00:01<00:00, 182.74it/s]Loading weights:  86%|████████▌ | 290/338 [00:01<00:00, 194.67it/s]Loading weights:  94%|█████████▍| 317/338 [00:01<00:00, 185.54it/s]Loading weights: 100%|██████████| 338/338 [00:01<00:00, 172.91it/s]
+[transformers] Calling `crop` with a positive value is deprecated and will be removed in version 5.18. Please use a negative integer to remove that number of tokens from the cache instead.
+[1/12] pass b/s = 1/1 identical=1
+[2/12] pass b/s = 1/1 identical=2
+[3/12] pass b/s = 2/2 identical=3
+[4/12] pass b/s = 3/3 identical=4
+[5/12] pass b/s = 4/4 identical=5
+[6/12] pass b/s = 5/5 identical=6
+[7/12] pass b/s = 6/6 identical=7
+[8/12] pass b/s = 7/7 identical=8
+[9/12] pass b/s = 8/8 identical=9
+[10/12] pass b/s = 8/8 identical=10
+[11/12] pass b/s = 8/8 identical=11
+[12/12] pass b/s = 9/9 identical=12
+{
+  "problems": 12,
+  "k": 4,
+  "max_new": 200,
+  "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+  "target": "Qwen/Qwen2.5-1.5B-Instruct",
+  "baseline_tok_s": 4.430641397694077,
+  "spec_tok_s": 4.397394116720681,
+  "speedup": 0.992496056893546,
+  "acceptance_rate": 0.9159381304640215,
+  "theoretical_speedup_at_c=0.33": 1.8220367002683293,
+  "pass1_baseline": 0.75,
+  "pass1_speculative": 0.75,
+  "identical_outputs": "12/12"
+}

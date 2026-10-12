@@ -1,0 +1,31 @@
+[project]
+name = "specinfer"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+  "torch", "transformers", "fastapi", "uvicorn", "qdrant-client",
+  "sentence-transformers", "pydantic-settings", "datasets", "numpy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "httpx"]
+mlx = ["mlx", "mlx-lm"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["slow: needs model downloads"]
+
+[tool.ruff]
+line-length = 100
+src = ["src"]
+
+[tool.mypy]
+ignore_missing_imports = true
