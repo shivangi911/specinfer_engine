@@ -45,3 +45,26 @@ def test_caches_stay_synced_with_sampling():
     out = [x for c in speculative_generate(d, t, [5], set(), 30, 3, 1.0, seed=0) for x in c]
     assert len(out) == 30
     assert d.length == t.length
+
+
+def test_sampled_speculative_matches_target_marginals():
+    """Temperature 1: first/second token marginals of speculative decoding match exact target p."""
+    prompt, trials = [1, 2, 3], 4000
+    target = FakeLM(1)
+
+    def probs(last):
+        target.reset()
+        return torch.softmax(target.forward([last])[-1], -1)
+
+    p1 = probs(prompt[-1])
+    p2 = sum(p1[t] * probs(t) for t in range(V))  # exact marginal of token 2
+    c1, c2 = torch.zeros(V), torch.zeros(V)
+    for s in range(trials):
+        out = [t for c in speculative_generate(FakeLM(2), FakeLM(1), prompt, set(), 2, 3, 1.0,
+                                               seed=s) for t in c]
+        c1[out[0]] += 1
+        c2[out[1]] += 1
+    for counts, p in ((c1, p1), (c2, p2)):
+        keep = p * trials >= 5
+        chi2 = ((counts[keep] - trials * p[keep]) ** 2 / (trials * p[keep])).sum().item()
+        assert chi2 < 35, chi2  # df<=10, p~0.0001
