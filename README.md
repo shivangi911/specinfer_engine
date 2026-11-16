@@ -287,6 +287,24 @@ CI (`.github/workflows/ci.yml`) runs ruff, mypy and the non-slow tests. All pass
 - The theoretical speedup from the formula in 2.4 at alpha = 0.916, K = 4, c = 0.33 is about 1.82x. The measured 0.99x is lower because verifying 5 tokens on a compute-bound CPU costs more than one decode step, and because 0.5B vs 1.5B is only about a 3x cost ratio.
 - With only 12 problems, pass@1 is a parity check, not a statistically meaningful accuracy estimate. Raw numbers: `docs/bench_results.json`, log: `docs/bench.log`.
 
+### 10.1 Sweep over K and precision (`bench/sweep.py`)
+3 prompts, 96 new tokens each, greedy, same CPU. Raw data: `docs/sweep_results.json`.
+
+| dtype | K | Throughput | Speedup | Acceptance |
+| :-- | :-- | :-- | :-- | :-- |
+| float32 | baseline | 4.29 tok/s | 1.00x | n/a |
+| float32 | 2 | 3.90 tok/s | 0.91x | 93.1% |
+| float32 | 4 | 4.25 tok/s | 0.99x | 88.3% |
+| float32 | 6 | 3.86 tok/s | 0.90x | 85.2% |
+| bfloat16 | baseline | 9.70 tok/s | 1.00x | n/a |
+| bfloat16 | 2 | 9.59 tok/s | 0.99x | 94.1% |
+| bfloat16 | 4 | 9.86 tok/s | 1.02x | 89.4% |
+| bfloat16 | 6 | 9.43 tok/s | 0.97x | 83.7% |
+
+Findings: bf16 more than doubles baseline CPU throughput (9.7 vs 4.3 tok/s), acceptance falls as K grows
+(as the geometric model predicts), and K = 4 is the best setting, but speculative decoding stays at about 1.0x here.
+The 0.5B/1.5B pair is too close in cost and the CPU is not bandwidth-bound, so a larger target is needed to see a gain.
+
 ---
 
 ## 11. Limitations and honest notes
