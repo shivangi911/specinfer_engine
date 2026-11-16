@@ -6,3 +6,4 @@ data/cache_store/
 .ruff_cache/
 .pytest_cache/
 .hf/
+docs/*.log
